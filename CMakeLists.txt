@@ -6,12 +6,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-if(APPLE)
-    set(CMAKE_INSTALL_RPATH "${PROJECT_BINARY_DIR}/_deps/sfml-src/extlibs/libs-osx/Frameworks")
-endif()
-
-include(cmake/Options.cmake)
-
 ###############################################################################
 
 # external dependencies with FetchContent
@@ -80,9 +74,6 @@ endif()
 ###############################################################################
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${DESTINATION_DIR})
-if(APPLE)
-    install(FILES launcher.command DESTINATION ${DESTINATION_DIR})
-endif()
 
 # copy dependent DLLs to build dir
 # see https://en.sfml-dev.org/forums/index.php?topic=28580.0
