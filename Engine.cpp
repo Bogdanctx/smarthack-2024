@@ -9,7 +9,6 @@ Engine::Engine(int width, int height) :
 
 void Engine::run()
 {
-    sound.play();
     while(window.isOpen())
     {
         handleEvent();

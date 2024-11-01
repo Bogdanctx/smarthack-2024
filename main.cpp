@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Engine.h"
 #include "ResourceManager.h"
 
@@ -5,7 +7,7 @@ int main()
 {
     try
     {
-        ResourcesManager::Instance().load();
+        ResourceManager::Instance().load();
     } catch (std::exception& e)
     {
         std::cout << e.what() << std::endl;
