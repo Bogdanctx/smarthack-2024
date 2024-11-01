@@ -2,10 +2,11 @@
 #define ENGINE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Engine {
 public:
-    Engine(int width = 800, int height = 600);
+    explicit Engine(int width = 800, int height = 600);
 
     void run();
 private:

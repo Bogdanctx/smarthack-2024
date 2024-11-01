@@ -5,6 +5,7 @@ project(sfml-template)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(DESTINATION_DIR "bin")
 
 ###############################################################################
 
@@ -46,11 +47,8 @@ add_executable(
         ${PROJECT_NAME}
         main.cpp
         Engine.cpp
-
+        ResourceManager.cpp
 )
-
-
-include(cmake/CompilerFlags.cmake)
 
 ###############################################################################
 
