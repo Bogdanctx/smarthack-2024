@@ -1,0 +1,21 @@
+# ninja log v6
+1365	1368	1730465310003788691	curl-populate-prefix/src/curl-populate-stamp/curl-populate-build	bb601e2945544ad2
+1359	1362	1730465309998788464	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-patch	a2830cc3458f3525
+1362	1365	1730465310001788601	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-configure	995b9877101fb822
+1374	1378	1730465310014789191	CMakeFiles/curl-populate-complete	e0e7a3301b021c62
+1374	1378	1730465310014789191	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-done	e0e7a3301b021c62
+1357	1359	1730465309995788328	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-update	a8adcb8fa02c4333
+4	1357	1730465309992788192	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-download	a96c01e2bd2b2d9c
+1371	1374	1730465310009788964	curl-populate-prefix/src/curl-populate-stamp/curl-populate-test	7cf6416e9e54edf8
+1357	1359	1730465309995788328	curl-populate-prefix/src/curl-populate-stamp/curl-populate-update	a8adcb8fa02c4333
+1374	1378	1730465310014789191	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/CMakeFiles/curl-populate-complete	e0e7a3301b021c62
+1374	1378	1730465310014789191	curl-populate-prefix/src/curl-populate-stamp/curl-populate-done	e0e7a3301b021c62
+1371	1374	1730465310009788964	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-test	7cf6416e9e54edf8
+1368	1371	1730465310006788828	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-install	8dc3d0659a789f91
+0	4	1730465308639726840	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-mkdir	3e04f0e840ce7e70
+1359	1362	1730465309998788464	curl-populate-prefix/src/curl-populate-stamp/curl-populate-patch	a2830cc3458f3525
+0	4	1730465308639726840	curl-populate-prefix/src/curl-populate-stamp/curl-populate-mkdir	3e04f0e840ce7e70
+1362	1365	1730465310001788601	curl-populate-prefix/src/curl-populate-stamp/curl-populate-configure	995b9877101fb822
+4	1357	1730465309992788192	curl-populate-prefix/src/curl-populate-stamp/curl-populate-download	a96c01e2bd2b2d9c
+1365	1368	1730465310003788691	/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/curl-subbuild/curl-populate-prefix/src/curl-populate-stamp/curl-populate-build	bb601e2945544ad2
+1368	1371	1730465310006788828	curl-populate-prefix/src/curl-populate-stamp/curl-populate-install	8dc3d0659a789f91

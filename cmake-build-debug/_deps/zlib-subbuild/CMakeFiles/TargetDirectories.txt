@@ -1,0 +1,3 @@
+/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/zlib-subbuild/CMakeFiles/zlib-populate.dir
+/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/zlib-subbuild/CMakeFiles/edit_cache.dir
+/home/bgd/Desktop/sfml-template/cmake-build-debug/_deps/zlib-subbuild/CMakeFiles/rebuild_cache.dir
