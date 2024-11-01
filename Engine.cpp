@@ -39,11 +39,10 @@ void Engine::handleEvent()
     {
         switch(event.type)
         {
-            case sf::Event::Closed:
+        case sf::Event::Closed:
             {
                 window.close();
             }
         }
     }
 }
-
