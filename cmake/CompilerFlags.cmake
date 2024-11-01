@@ -1,15 +1,4 @@
-# target definitions
-
-if(GITHUB_ACTIONS)
-    message("NOTE: GITHUB_ACTIONS defined")
-    target_compile_definitions(${PROJECT_NAME} PRIVATE GITHUB_ACTIONS)
-endif()
-
 ###############################################################################
-
-if(PROJECT_WARNINGS_AS_ERRORS)
-    set_property(TARGET ${PROJECT_NAME} PROPERTY COMPILE_WARNING_AS_ERROR ON)
-endif()
 
 # custom compiler flags
 message("Compiler: ${CMAKE_CXX_COMPILER_ID} version ${CMAKE_CXX_COMPILER_VERSION}")
@@ -22,8 +11,6 @@ endif()
 ###############################################################################
 
 # sanitizers
-
-include(cmake/CustomStdlibAndSanitizers.cmake)
 
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
 else()
