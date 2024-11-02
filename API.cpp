@@ -6,6 +6,7 @@
 #include <cpr/cpr.h>
 #include <nlohmann/json.hpp>
 #include <iostream>
+#include "structs.h"
 
 void API::startSession(std::unordered_map<std::string, std::vector<std::string>> data)
 {

@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-
 class API {
 public:
     void startSession(std::unordered_map<std::string, std::vector<std::string>> data);

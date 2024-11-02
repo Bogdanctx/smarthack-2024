@@ -63,6 +63,7 @@ add_executable(${PROJECT_NAME}
         API.h
         CSVParser.cpp
         CSVParser.h
+        structs.h
 )
 
 ###############################################################################
