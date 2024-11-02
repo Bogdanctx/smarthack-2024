@@ -1,14 +1,16 @@
 #include <iostream>
+#include <fstream>
 
 #include "Engine.h"
 #include "ResourceManager.h"
+#include "API.h"
+#include "CSVParser.h"
 
 // #include <cpr/cpr.h>
-// #include <nlohmann/json.hpp>
+#include <nlohmann/json.hpp>
 
 int main()
 {
-    int commitdespacito = 666,engine_kaput=1;//engine_kaput=0-NU RULAM ENGINE GRAFIC
     try
     {
         ResourceManager::Instance().load();
@@ -17,10 +19,14 @@ int main()
     {
         std::cout << e.what() << std::endl;
     }
-    if(engine_kaput) {
-        Engine engine;
-        engine.run();
-    }
+
+    std::ifstream fin("resources/api_config.json");
+    nlohmann::json api_json = nlohmann::json::parse(fin);
+
+    API api{api_json["api_key"], api_json["api_link"]};
+
+    CSVParser parser;
+
 
     return 0;
 }

@@ -59,12 +59,11 @@ add_executable(${PROJECT_NAME}
     Engine.h
     ResourceManager.cpp
     ResourceManager.h
-        main.cpp
-        Engine.cpp
-        Engine.h
-        Engine.h
-        ResourceManager.h
-        ResourceManager.cpp
+    CSVParser.h
+    CSVParser.cpp
+    structs.h
+    API.cpp
+    API.h
 )
 
 ###############################################################################

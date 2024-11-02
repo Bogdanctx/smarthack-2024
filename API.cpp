@@ -73,7 +73,7 @@ std::vector<Demand> API::playRound(int day, std::vector<Movement> movements)
         unsigned long long amount = d["amount"].get<unsigned long long>();
         unsigned int postDay = d["postDay"].get<unsigned int>();
         unsigned int startDay = d["startDay"].get<unsigned int>();
-        unsigned int endDay = d.at("endDay");
+        unsigned int endDay = d.at("endDay").get<unsigned int>();
 
         Demand new_demand(customerId, amount, postDay, startDay, endDay);
         demands.push_back(new_demand);
