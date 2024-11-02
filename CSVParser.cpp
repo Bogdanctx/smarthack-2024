@@ -323,9 +323,9 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getRefineri
             std::cout << value << " "<<std::endl;
         }
         std::cout << std::endl;
-    }
+    } */
     return data;
-    */
+
 }
 
 std::unordered_map<std::string, std::vector<std::string>> CSVParser::getTanks() {
@@ -397,7 +397,7 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getTanks() 
         //data["node_type"].push_back(valuesformap[11]);
         valuesformap.clear();
     }
-
+    /*
     for (const auto& pair : data) {
         std::cout << pair.first<<": "<<std::endl;
         for (const auto& value : pair.second) {
@@ -405,7 +405,8 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getTanks() 
         }
         std::cout << std::endl;
     }
+     */
     return data;
-    
+
 }
 
