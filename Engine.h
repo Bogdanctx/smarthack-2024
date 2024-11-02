@@ -6,7 +6,7 @@
 
 class Engine {
 public:
-    explicit Engine(int width = 800, int height = 600);
+    explicit Engine(int width = 1200, int height = 800);
 
     void run();
 private:
@@ -14,8 +14,10 @@ private:
     void handleEvent();
     void update();
     void render();
-
+    sf::Texture texture;
     sf::RenderWindow window;
+    sf::Sprite sprite;
+    sf::Font font;
 };
 
 
