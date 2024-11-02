@@ -19,6 +19,7 @@ bool cmpTanks(const std::pair<std::string, Tank>& a, const std::pair<std::string
 
 int main()
 {
+    int commitdespacito = 666,engine_kaput=1;//engine_kaput=0-NU RULAM ENGINE GRAFIC
     try
     {
         ResourceManager::Instance().load();
@@ -61,6 +62,10 @@ int main()
     for(const Demand& demand: api_new_demands)
     {
         total_demands.push_back(demand);
+    }
+    if(engine_kaput) {
+        Engine engine;
+        engine.run();
     }
 
     return 0;
