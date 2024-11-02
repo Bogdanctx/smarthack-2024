@@ -8,6 +8,7 @@
 
 int main()
 {
+    int commitdespacito = 666;
     try
     {
         ResourceManager::Instance().load();
