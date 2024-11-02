@@ -58,5 +58,6 @@ void API::playRound()
 
         std::cout << customerId << ' ' << amount << ' ' <<  postDay << ' ' << startDay << ' ' << endDay << ' ' << std::endl;
     }
+
 }
 
