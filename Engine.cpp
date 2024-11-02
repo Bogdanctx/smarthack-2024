@@ -5,7 +5,12 @@ Engine::Engine(int width, int height) :
 {
     texture.loadFromFile("resources/cautz.jpg");
     sprite.setTexture(texture);
-    font.loadFromFile("arial.ttf");
+    font.loadFromFile("resources/Arial regular.ttf");
+    text.setFont(font);
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::White);
+    text.setString("Rafinarie");
+
 }
 
 
@@ -21,10 +26,8 @@ void Engine::run()
 
 void Engine::render()
 {
-
-
-    window.clear(sf::Color::Blue);//intre astea intra renderingul
-
+    window.clear(sf::Color::Black);//intre astea intra renderingul
+    window.draw(text);
     window.draw(sprite);
     sprite.move(sf::Vector2f(0.1, 0.f));
     window.display();
