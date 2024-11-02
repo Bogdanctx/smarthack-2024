@@ -16,9 +16,12 @@ private:
     void update();
     void render();
     sf::Texture texture_rafinarie,texture_clienti,texture_storage;
+    sf::Texture texture_titlescreen;
     sf::RenderWindow window;
     sf::Sprite sprite_rafinarie,sprite_clienti,sprite_storage;
+    sf::Sprite sprite_titlescreen;
     sf::Font font;
+    sf::Text Titlu_titlescreen;
     sf::Text titlul,val_raf,val_cli,val_storage;//se iau din json
 
     void Generate_Rafinarii(std::string titlu,std::string valoare) {
@@ -180,6 +183,26 @@ private:
             window.draw(titlul);
             i--;
         }
+
+    }
+    void Title_screen() {
+        float width,height;
+        std::string titlu;
+        sf::FloatRect textBounds ;
+        titlu="Vizualizator valori fiecare tura\nFiecare tasta ajuta la vizualizarea unei alte categorii\n1: Rafinarii\n2: Clienti\n3: Storage\n4: Penalizari\n'n': Trece la urmatoarea tura";
+        Titlu_titlescreen.setFont(font);
+        Titlu_titlescreen.setCharacterSize(100);
+        Titlu_titlescreen.setFillColor(sf::Color::White);
+        Titlu_titlescreen.setString(titlu);
+        width=sf::VideoMode::getDesktopMode().width;
+        height=sf::VideoMode::getDesktopMode().height;
+        textBounds=Titlu_titlescreen.getGlobalBounds();
+        float textWidth = textBounds.width;
+        float textHeight = textBounds.height;
+        Titlu_titlescreen.setPosition(sf::Vector2f(width/2-textWidth/2,height/2-textHeight/2));
+
+
+        window.draw(Titlu_titlescreen);
 
     }
 

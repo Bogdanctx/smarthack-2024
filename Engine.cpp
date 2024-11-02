@@ -43,7 +43,16 @@ void Engine::render()
             Generate_Storage("Storage","valoare");
             break;
         }
-        default: break;
+        case 4: {
+
+        }
+        case 5: {
+
+        }
+        default: {
+            Title_screen();
+            break;
+        }
     }
 
 
@@ -58,12 +67,10 @@ void Engine::update()
 
 }
 
-void Engine::handleEvent()
-{
+void Engine::handleEvent() {
     sf::Event event;
 
-    while(window.pollEvent(event))
-    {
+    while(window.pollEvent(event)) {
         switch(event.type)//switch pt orice interactiune
         {
             case sf::Event::Closed:
@@ -72,7 +79,7 @@ void Engine::handleEvent()
             }
             case sf::Event::MouseWheelScrolled: {
                 window.close();
-        }
+            }
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Num1: {
@@ -87,13 +94,21 @@ void Engine::handleEvent()
                         mod=3;
                         break;
                     }
+                    case sf::Keyboard::Num4: {
+                        mod=4;
+                        break;
+                    }
+                    case sf::Keyboard::N: {
+                        mod=5;
+                        break;
+
+                    }
+
+
+                    default:
+                        break;
                 }
-
             }
-
-
-            default:
-                break;
         }
     }
 }
