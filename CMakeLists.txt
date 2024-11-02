@@ -65,6 +65,8 @@ add_executable(${PROJECT_NAME}
         Engine.h
         ResourceManager.h
         ResourceManager.cpp
+        CSVParser.cpp
+        API.cpp
 )
 
 ###############################################################################

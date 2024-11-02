@@ -2,13 +2,15 @@
 
 #include "Engine.h"
 #include "ResourceManager.h"
-
+#include "CSVParser.h"
+#include "structs.h"
 // #include <cpr/cpr.h>
 // #include <nlohmann/json.hpp>
 
+#include "API.h"
+
 int main()
 {
-    int commitdespacito = 666,engine_kaput=1;//engine_kaput=0-NU RULAM ENGINE GRAFIC
     try
     {
         ResourceManager::Instance().load();
@@ -17,10 +19,18 @@ int main()
     {
         std::cout << e.what() << std::endl;
     }
-    if(engine_kaput) {
-        Engine engine;
-        engine.run();
-    }
+
+    //API api;
+    //api.startSession();
+    CSVParser csv;
+    csv.getConnections();
+    csv.getCustomers();
+    csv.getDemands();
+    csv.getRefineries();
+    csv.getTanks();
+    Engine engine;
+
+    engine.run();
 
     return 0;
 }

@@ -6,17 +6,50 @@
 #include <fstream>
 #include <iostream>
 
-std::unordered_map<std::string, std::vector<std::string>> CSVParser::getConnections() {
-    std::unordered_map<std::string, std::vector<std::string>> data;
+std::unordered_map<std::string, Connection> CSVParser::getConnections() {
+    std::unordered_map<std::string, Connection> data;
     std::ifstream fin("resources/data/connections.csv");
     if (!fin) {
         std::cerr << "Could not open the file!" << std::endl;
         return data;
     }
 
-    std::string keys;
+    std::string titluri;
+    std::string line;
     //fin >> keys;
-    std::getline(fin,keys);
+    std::getline(fin,titluri);
+    std::string key;
+    while(std::getline(fin,line))
+    {
+        key="";
+        std::vector<std::string> kkturi;
+        std::string item;
+        bool foundkey= false;
+        for(auto letter: line)
+        {
+            if(letter!=';')
+            {
+                item+=letter;
+            }
+            else
+            {
+                if(!foundkey)
+                {
+                    foundkey=true;
+                    key=item;
+                    item="";
+                }
+                else
+                {
+                    kkturi.push_back(item);
+                    item = "";
+                }
+            }
+        }
+        //data[key] = Connection(kkturi[0],kkturi[1],std::stoull(kkturi[2]), std::stoull(kkturi[3]),kkturi[4],std::stoull(kkturi[5]));
+        kkturi.clear();
+    }
+    /*
     std::vector<std::string> keylist;
     std::string item;
     for (char letter : keys) {
@@ -31,8 +64,9 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getConnecti
         keylist.push_back(item);
         item = "";
     }
-
-    std::vector<std::string> values;
+    */
+    /*
+    std::vector<Connection> values;
     for (const auto& key : keylist) {
         data[key] = values;
     }
@@ -44,7 +78,7 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getConnecti
         }
         std::cout << std::endl;
     }
-    */
+
     std::string line;
     while(std::getline(fin,line))
     {
@@ -69,7 +103,7 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getConnecti
         data["max_capacity"].push_back(valuesformap[6]);
         valuesformap.clear();
     }
-    /*
+
     for (const auto& pair : data) {
         std::cout << pair.first<<": "<<std::endl;
         for (const auto& value : pair.second) {
@@ -81,7 +115,7 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getConnecti
     return data;
 }
 
-std::unordered_map<std::string, std::vector<std::string>> CSVParser::getCustomers() {
+std::unordered_map<std::string, Customers> CSVParser::getCustomers() {
     std::unordered_map<std::string, std::vector<std::string>> data;
     std::ifstream fin("resources/data/customers.csv");
     if (!fin) {
@@ -157,10 +191,6 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getCustomer
     return data;
 }
 
-map<
-
-map[i]["id"] -> id;
-map[i]["customer_id"] -> cus
 
 std::unordered_map<std::string, std::vector<std::string>> CSVParser::getDemands() {
     std::unordered_map<std::string, std::vector<std::string>> data;
@@ -226,7 +256,7 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getDemands(
         //data["node_type"].push_back(valuesformap[6]);
         valuesformap.clear();
     }
-    /*
+
     for (const auto& pair : data) {
         std::cout << pair.first<<": "<<std::endl;
         for (const auto& value : pair.second) {
@@ -234,7 +264,7 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getDemands(
         }
         std::cout << std::endl;
     }
-     */
+
     return data;
 }
 
@@ -307,14 +337,14 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getRefineri
         data["node_type"].push_back(valuesformap[11]);
         valuesformap.clear();
     }
-    /*
+
     for (const auto& pair : data) {
         std::cout << pair.first<<": "<<std::endl;
         for (const auto& value : pair.second) {
             std::cout << value << " "<<std::endl;
         }
         std::cout << std::endl;
-    } */
+    }
     return data;
 
 }
@@ -390,9 +420,9 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getTanks() 
     }
     /*
     for (const auto& pair : data) {
-        std::cout << pair.first<<": "<<std::endl;
-        for (const auto& value : pair.second) {
-            std::cout << value << " "<<std::endl;
+        std::cout << pair.first << ": " << std::endl;
+        for (const auto &value: pair.second) {
+            std::cout << value << " " << std::endl;
         }
         std::cout << std::endl;
     }
