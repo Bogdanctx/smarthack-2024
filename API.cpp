@@ -1,45 +1,63 @@
-//
-// Created by bgd on 02.11.2024.
-//
-
 #include "API.h"
 #include <cpr/cpr.h>
 #include <nlohmann/json.hpp>
 #include <iostream>
-#include "structs.h"
 
-void API::startSession(std::unordered_map<std::string, std::vector<std::string>> data)
+API::API(const std::string& key, const std::string& link) : key(key), link(link)
+{}
+
+
+void API::startSession()
 {
-    cpr::Url link{"http://localhost:8080/api/v1/session/start"};
-    cpr::Header header = {
-        {"API-KEY", "7bcd6334-bc2e-4cbf-b9d4-61cb9e868869"},
-    };
+    cpr::Response res = cpr::Post(
+        cpr::Url{link + "/api/v1/session/start"},
+        cpr::Header{
+        	{"API-KEY", key},
+        	{"Content-Type", "application/json"}
+        }
+    );
 
-    nlohmann::json json = {
-        {""}
-    };
+    nlohmann::json response = nlohmann::json::parse(res.text);
 
-    cpr::Response res = cpr::Post(link, header);
+    session = response["session"].get<std::string>;
 }
 
+void API::endSession()
+{
+    cpr::Response res = cpr::Post(
+        cpr::Url{link + "/api/v1/session/end"},
+        cpr::Header{
+            {"API-KEY", key},
+            {"Content-Type", "application/json"}
+        }
+    );
+}
 
-void API::playRound()
+std::vector<Demand> API::playRound(int day, std::vector<Movement> movements)
 {
     nlohmann::json j;
 
-    j["day"] = "12";
+    j["day"] = std::to_string(day);
     j["movements"] = nlohmann::json::array();
 
-    j["movements"].push_back({
-        {"connectionId", "3fa85f64-5717-4562-b3fc-2c963f66afa6"},
-        {"amount", "0"}
-    });
+    for(const Movement& movement : movements)
+    {
+        std::string connectionId = movement.connectionId;
+        unsigned long long amount = movement.amount;
+
+        j["movements"].push_back(
+            {
+                {"connectionId", connectionId},
+            {   "amount", amount}
+            }
+        );
+    }
 
     cpr::Response res = cpr::Post(
-        cpr::Url{"http://localhost:8080/api/v1/play/round"},
+        cpr::Url{link + "/api/v1/play/round"},
         cpr::Header{
-            {"API-KEY", "7bcd6334-bc2e-4cbf-b9d4-61cb9e868869"},
-            {"SESSION-ID", "bf433055-79e1-437e-9ab9-378712326bc8"},
+            {"API-KEY", key},
+            {"SESSION-ID", session},
             {"Content-Type", "application/json"}
         },
         cpr::Body{j.dump()}
@@ -47,18 +65,20 @@ void API::playRound()
 
     nlohmann::json parsed = nlohmann::json::parse(res.text);
 
-    std::cout << res.status_code << '\n';
+    std::vector<Demand> demands;
 
     for(auto d: parsed["demand"])
     {
         std::string customerId = d["customerId"].get<std::string>();
         unsigned long long amount = d["amount"].get<unsigned long long>();
-        int postDay = d["postDay"].get<unsigned long long>();
-        int startDay = d["startDay"].get<unsigned long long>();
-        int endDay = d.at("endDay");
+        unsigned int postDay = d["postDay"].get<unsigned int>();
+        unsigned int startDay = d["startDay"].get<unsigned int>();
+        unsigned int endDay = d.at("endDay");
 
-        std::cout << customerId << ' ' << amount << ' ' <<  postDay << ' ' << startDay << ' ' << endDay << ' ' << std::endl;
+        Demand new_demand(customerId, amount, postDay, startDay, endDay);
+        demands.push_back(new_demand);
     }
 
+    return demands;
 }
 

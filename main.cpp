@@ -1,10 +1,12 @@
 #include <iostream>
-
+#include <fstream>
 #include "Engine.h"
 #include "ResourceManager.h"
 #include "CSVParser.h"
 // #include <cpr/cpr.h>
 // #include <nlohmann/json.hpp>
+
+#include <chrono>
 
 #include "API.h"
 
@@ -19,14 +21,16 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    //API api;
-    //api.startSession();
-    CSVParser csv;
-    csv.getConnections();
-    csv.getCustomers();
-    csv.getDemands();
-    csv.getRefineries();
-    csv.getTanks();
+    std::ifstream fin("resources/link.txt");
+    std::string link, api_key;
+
+    fin >> link >> api_key;
+
+    API api{link, api_key};
+    api.startSession();
+
+
+    return 0;
     Engine engine;
 
     engine.run();
