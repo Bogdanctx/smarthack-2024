@@ -21,28 +21,19 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    std::ifstream fin("resources/link.txt");
-    std::string link, api_key;
+    CSVParser parser;
+    auto map = parser.getDemands();
 
-    fin >> link >> api_key;
+    for(auto it: map)
+    {
+        std::cout << it.first << ' ';
+        for(auto it2: it.second)
+        {
+            std::cout << it2 << ' ';
+        }
+        std::cout << '\n';
+    }
 
-    API api{api_key, link};
-    api.startSession();
-
-
-
-    Movement movement("3fa85f64-5717-4562-b3fc-2c963f66afa6", 15);
-    std::vector<Movement> movements = { movement };
-
-    api.playRound(0, movements);
-
-    return 0;
-
-    api.endSession();
-    return 0;
-    Engine engine;
-
-    engine.run();
 
     return 0;
 }

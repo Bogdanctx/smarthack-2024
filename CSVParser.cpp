@@ -157,6 +157,11 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getCustomer
     return data;
 }
 
+map<
+
+map[i]["id"] -> id;
+map[i]["customer_id"] -> cus
+
 std::unordered_map<std::string, std::vector<std::string>> CSVParser::getDemands() {
     std::unordered_map<std::string, std::vector<std::string>> data;
     std::ifstream fin("resources/data/demands.csv");
