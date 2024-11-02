@@ -35,3 +35,4 @@ Doamne ajuta!!!
                                     #((((((/                                    
                                     .  . ...   
                     
+Nici foamea nu ne mai ajuta
