@@ -78,6 +78,7 @@ struct Tank
     double over_output_penalty;
     unsigned long long initial_stock;
     std::string node_type;
+    unsigned long long cat_e_ocupat = initial_stock;
 };
 
 struct Demand {
