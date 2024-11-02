@@ -8,7 +8,7 @@
 
 int main()
 {
-    int commitdespacito = 666;
+    int commitdespacito = 666,engine_kaput=1;//engine_kaput=0-NU RULAM ENGINE GRAFIC
     try
     {
         ResourceManager::Instance().load();
@@ -17,10 +17,10 @@ int main()
     {
         std::cout << e.what() << std::endl;
     }
-
-    Engine engine;
-
-    engine.run();
+    if(engine_kaput) {
+        Engine engine;
+        engine.run();
+    }
 
     return 0;
 }
