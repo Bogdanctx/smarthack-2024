@@ -13,7 +13,6 @@ API::API()
 
 }
 
-/*
 void API::startSession(std::unord)
 {
     cpr::Url link{"http://localhost:8080/api/v1/session/start"};
@@ -30,4 +29,4 @@ void API::startSession(std::unord)
         std::cout << it << '\n';
     }
 }
-(*/
+

@@ -83,6 +83,7 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getConnecti
         data["max_capacity"].push_back(valuesformap[6]);
         valuesformap.clear();
     }
+    /*
     for (const auto& pair : data) {
         std::cout << pair.first<<": "<<std::endl;
         for (const auto& value : pair.second) {
@@ -90,6 +91,7 @@ std::unordered_map<std::string, std::vector<std::string>> CSVParser::getConnecti
         }
         std::cout << std::endl;
     }
+     */
     return data;
 }
 

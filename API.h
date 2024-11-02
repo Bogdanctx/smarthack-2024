@@ -7,7 +7,7 @@ class API {
 public:
     API();
 
-    //void startSession();
+    void startSession();
 };
 
 
