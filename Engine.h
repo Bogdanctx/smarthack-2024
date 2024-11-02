@@ -6,7 +6,7 @@
 
 class Engine {
 public:
-    explicit Engine(int width = 800, int height = 600);
+    explicit Engine(int width = sf::VideoMode::getDesktopMode().width-100, int height = sf::VideoMode::getDesktopMode().height);
 
     void run();
 private:
@@ -14,8 +14,11 @@ private:
     void handleEvent();
     void update();
     void render();
-
+    sf::Texture texture;
     sf::RenderWindow window;
+    sf::Sprite sprite;
+    sf::Font font;
+    sf::Text text;
 };
 
 

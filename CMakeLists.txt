@@ -54,16 +54,17 @@ endif()
 ###############################################################################
 
 add_executable(${PROJECT_NAME}
+    main.cpp
+    Engine.cpp
+    Engine.h
+    ResourceManager.cpp
+    ResourceManager.h
         main.cpp
         Engine.cpp
         Engine.h
-        ResourceManager.cpp
+        Engine.h
         ResourceManager.h
-        API.cpp
-        API.h
-        CSVParser.cpp
-        CSVParser.h
-        structs.h
+        ResourceManager.cpp
 )
 
 ###############################################################################
