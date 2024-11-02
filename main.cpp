@@ -2,9 +2,11 @@
 
 #include "Engine.h"
 #include "ResourceManager.h"
-
+#include "CSVParser.h"
 // #include <cpr/cpr.h>
 // #include <nlohmann/json.hpp>
+
+#include "API.h"
 
 int main()
 {
@@ -16,6 +18,9 @@ int main()
     {
         std::cout << e.what() << std::endl;
     }
+
+    API api;
+    api.startSession();
 
     Engine engine;
 
