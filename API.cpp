@@ -17,9 +17,9 @@ void API::startSession()
         }
     );
 
-    nlohmann::json response = nlohmann::json::parse(res.text);
+    session = res.text;
 
-    session = response["session"].get<std::string>;
+    std::cout << "Started session: key=" << key << "; session=" << session << std::endl;
 }
 
 void API::endSession()
@@ -77,6 +77,8 @@ std::vector<Demand> API::playRound(int day, std::vector<Movement> movements)
 
         Demand new_demand(customerId, amount, postDay, startDay, endDay);
         demands.push_back(new_demand);
+
+        std::cout << customerId << ' ' << amount << ' ' << postDay << ' ' << startDay << ' ' << endDay << std::endl;
     }
 
     return demands;

@@ -26,10 +26,19 @@ int main()
 
     fin >> link >> api_key;
 
-    API api{link, api_key};
+    API api{api_key, link};
     api.startSession();
 
 
+
+    Movement movement("3fa85f64-5717-4562-b3fc-2c963f66afa6", 15);
+    std::vector<Movement> movements = { movement };
+
+    api.playRound(0, movements);
+
+    return 0;
+
+    api.endSession();
     return 0;
     Engine engine;
 
