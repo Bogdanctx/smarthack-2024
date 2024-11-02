@@ -10,6 +10,10 @@ public:
     CSVParser();
     ~CSVParser();
     std::unordered_map<std::string, std::vector<std::string>> getConnections();
+    std::unordered_map<std::string, std::vector<std::string>> getCustomers();
+    std::unordered_map<std::string, std::vector<std::string>> getDemands();
+    std::unordered_map<std::string, std::vector<std::string>> getRefineries();
+    std::unordered_map<std::string, std::vector<std::string>> getTanks();
 };
 
 

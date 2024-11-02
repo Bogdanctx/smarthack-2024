@@ -22,7 +22,11 @@ int main()
     //API api;
     //api.startSession();
     CSVParser csv;
-    csv.getConnections();
+    //csv.getConnections();
+    //csv.getCustomers();
+    //csv.getDemands();
+    //csv.getRefineries();
+    csv.getTanks();
     Engine engine;
 
     engine.run();
