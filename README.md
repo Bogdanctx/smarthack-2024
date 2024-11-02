@@ -1,2 +1,2 @@
 Pipi caca
-NU PRIMIM NOTA
+Imi bag ceva 
