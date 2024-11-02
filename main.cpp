@@ -10,7 +10,6 @@
 
 int main()
 {
-    int commitdespacito = 666;
     try
     {
         ResourceManager::Instance().load();
@@ -20,9 +19,10 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    API api;
-    api.startSession();
-
+    //API api;
+    //api.startSession();
+    CSVParser csv;
+    csv.getConnections();
     Engine engine;
 
     engine.run();

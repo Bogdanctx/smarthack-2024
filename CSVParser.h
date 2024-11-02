@@ -1,6 +1,3 @@
-//
-// Created by bgd on 02.11.2024.
-//
 
 #ifndef CSVPARSER_H
 #define CSVPARSER_H
