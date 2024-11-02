@@ -1,17 +1,14 @@
 #include <iostream>
-#include <fstream>
+
 #include "Engine.h"
 #include "ResourceManager.h"
-#include "CSVParser.h"
+
 // #include <cpr/cpr.h>
 // #include <nlohmann/json.hpp>
 
-#include <chrono>
-
-#include "API.h"
-
 int main()
 {
+    int commitdespacito = 666,engine_kaput=1;//engine_kaput=0-NU RULAM ENGINE GRAFIC
     try
     {
         ResourceManager::Instance().load();
@@ -20,20 +17,10 @@ int main()
     {
         std::cout << e.what() << std::endl;
     }
-
-    CSVParser parser;
-    auto map = parser.getDemands();
-
-    for(auto it: map)
-    {
-        std::cout << it.first << ' ';
-        for(auto it2: it.second)
-        {
-            std::cout << it2 << ' ';
-        }
-        std::cout << '\n';
+    if(engine_kaput) {
+        Engine engine;
+        engine.run();
     }
-
 
     return 0;
 }
