@@ -73,7 +73,7 @@ std::unordered_map<std::string, Refinery> CSVParser::getRefineries()
         std::string node_type = row["node_type"].get<std::string>();
 
         Refinery refinery{name, capacity, max_output, production, overflow_penalty, underflow_penalty,
-                        over_output_penalty, production_cost, production_co2, initial_stock, node_type};
+                        over_output_penalty, production_cost, production_co2, initial_stock, node_type, id};
         refineries[id] = refinery;
     }
 
@@ -100,7 +100,7 @@ std::unordered_map<std::string, Tank> CSVParser::getTanks()
         unsigned long long initial_stock = row["initial_stock"].get<unsigned long long>();
         std::string node_type = row["node_type"].get<std::string>();
 
-        Tank tank{name, capacity, max_input, max_output, overflow_penalty, underflow_penalty, over_output_penalty, initial_stock, node_type};
+        Tank tank{name, capacity, max_input, max_output, overflow_penalty, underflow_penalty, over_output_penalty, initial_stock, node_type, id};
 
         tanks[id] = tank;
     }

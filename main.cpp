@@ -5,17 +5,8 @@
 #include "API.h"
 #include "CSVParser.h"
 // #include <cpr/cpr.h>
+#include <queue>
 #include <nlohmann/json.hpp>
-
-bool cmpRefs(const std::pair<std::string, Refinery>& a, const std::pair<std::string, Refinery>& b)
-{
-    return (static_cast<double>(a.second.cat_e_ocupat)/a.second.capacity)>(static_cast<double>(b.second.cat_e_ocupat)/b.second.capacity);
-}
-
-bool cmpTanks(const std::pair<std::string, Tank>& a, const std::pair<std::string, Tank>& b)
-{
-    return (static_cast<double>(a.second.cat_e_ocupat)/a.second.capacity)>(static_cast<double>(b.second.cat_e_ocupat)/b.second.capacity);
-}
 
 int main()
 {
@@ -40,90 +31,77 @@ int main()
 
     std::vector<Movement> movements;
 
-    for(int i = 0; i <= 42; i++)
+    for(int day = 0; day <= 42; day++)
     {
         auto tanks = parser.getTanks();
         auto connections = parser.getConnections();
 
         for(Demand& d: demands)
         {
-            if(d.startDay == i)
+            if(d.terminat)
             {
-                for(auto connection: connections)
-                {
-                    for(auto tank: tanks)
-                    {
-                        if(connection.second.from_id == tank.first && connection.second.to_id == d.customerId)
-                        {
-                            if(tank.second.cat_e_ocupat > d.amount)
-                            {
-                                tank.second.cat_e_ocupat -= d.amount;
-                                d.terminat = true;
+                continue;
+            }
 
-                                movements.push_back(Movement(connection.first, d.amount));
-                            }
+            for(auto& connection: connections)
+            {
+                for(auto& tank: tanks)
+                {
+                    if(tank.first == connection.second.from_id && connection.second.to_id == d.customerId)
+                    {
+                        if(tanks[connection.second.from_id].initial_stock >= d.amount)
+                        {
+                            movements.push_back(Movement{connection.first, d.amount});
+                            tanks[connection.second.from_id].initial_stock -= d.amount;
+                            d.terminat = true;
                         }
                     }
                 }
             }
         }
+
+        std::vector<Tank> tanks2;
+        for(auto& tank: tanks)
+        {
+            tanks2.push_back(tank.second);
+        }
+
+        std::sort(tanks2.begin(), tanks2.end(), [](const Tank& tank1, const Tank& tank2)
+        {
+            return tank1.initial_stock < tank2.initial_stock;
+        });
 
         auto rafinarii = parser.getRefineries();
-
-        for(auto rafinarie: rafinarii)
+        for(auto& rafinarie: rafinarii)
         {
-            std::string id_rafinarie = rafinarie.second.name;
-            int nr_tankuri = 0;
-            for(auto connection: connections)
+            for(auto& connection: connections)
             {
-                if(connection.second.from_id == id_rafinarie)
+                if(connection.second.from_id == rafinarie.second.id)
                 {
-                    unsigned long long productie = rafinarie.second.production;
-
-                    for(auto tank: tanks)
+                    for(auto& tank: tanks2)
                     {
-                        std::string id_tank = tank.second.name;
-                        if(connection.second.to_id == id_tank)
+                        if(connection.second.to_id == tank.id)
                         {
-                            nr_tankuri++;
+                            unsigned long long a = std::min(rafinarie.second.max_output, rafinarie.second.production);
+                            tank.initial_stock += a;
+                            movements.push_back(Movement(connection.first, a));
                         }
-                    }
-                }
-            }
-
-            for(auto connection: connections)
-            {
-                if(connection.second.from_id == id_rafinarie)
-                {
-                    bool has_break = false;
-                    unsigned long long productie = rafinarie.second.production;
-
-                    for(auto tank: tanks)
-                    {
-                        std::string id_tank = tank.second.name;
-                        if(connection.second.to_id == id_tank)
-                        {
-                            tank.second.cat_e_ocupat += productie;
-                            std::cout << tank.second.cat_e_ocupat << std::endl;
-                            movements.push_back(Movement(connection.first, productie));
-                            has_break = true;
-                            break;
-                        }
-                    }
-                    if(has_break)
-                    {
-                        break;
                     }
                 }
             }
         }
 
-        std::vector<Demand> new_demands = api.playRound(i, movements);
-
-        for(Demand& d: new_demands)
+        for(auto& tank: tanks2)
         {
-            demands.push_back(d);
+            tanks[tank.id] = tank;
         }
+
+        std::vector<Demand> new_demands = api.playRound(day, movements);
+        for(auto& new_demand: new_demands)
+        {
+            demands.push_back(new_demand);
+        }
+
     }
     api.endSession();
 
