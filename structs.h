@@ -68,7 +68,7 @@ struct Tank
         overflow_penalty(overflow_penalty), underflow_penalty(underflow_penalty), over_output_penalty(over_output_penalty),
     over_input_penalty(over_input_penalty), initial_stock(initial_stock), node_type(node_type), id(id) {}
 
-    std::string id;
+    const int id;
     std::string name;
     unsigned long long capacity;
     unsigned long long max_input;
@@ -80,6 +80,7 @@ struct Tank
     unsigned long long initial_stock;
     std::string node_type;
     unsigned long long cat_e_ocupat = 0;
+   // std::vector<std::vector<unsigned long long>> actual_storage;
 };
 
 struct Demand {
