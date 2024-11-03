@@ -9,8 +9,10 @@
 #include <nlohmann/json.hpp>
 
 int main()
+
 {
     int commitdespacito = 666,engine_kaput=1;//engine_kaput=0-NU RULAM ENGINE GRAFIC
+
     try
     {
         ResourceManager::Instance().load();
@@ -52,7 +54,6 @@ int main()
             }
         }
 
-        // Sort tanks by initial stock for efficient refilling
         std::vector<std::reference_wrapper<Tank>> tanks_sorted;
         for (auto& tank_pair : tanks) {
             tanks_sorted.push_back(tank_pair.second);
@@ -81,10 +82,9 @@ int main()
         // Update demands based on new round data
         auto new_demands = api.playRound(day, movements);
         demands.insert(demands.end(), new_demands.begin(), new_demands.end());
-}
+    }
 
     api.endSession();
-
 
     return 0;
 }

@@ -53,6 +53,8 @@ std::vector<Demand> API::playRound(int day, std::vector<Movement> movements)
         );
     }
 
+    //std::cout << j << '\n';
+
     cpr::Response res = cpr::Post(
         cpr::Url{link + "/api/v1/play/round"},
         cpr::Header{
@@ -80,6 +82,14 @@ std::vector<Demand> API::playRound(int day, std::vector<Movement> movements)
     }
 
     std::cout << "Day: " << parsed["totalKpis"]["day"] << ' ' << "cost: " << parsed["totalKpis"]["day"] << ' ' << "co2: " << parsed["totalKpis"]["co2"] << std::endl;
+
+    std::cout << "\n\n";
+    for(auto it: parsed["penalties"])
+    {
+        std::cout << "PDAY " << it["day"] << " PCOST " << it["cost"] << " PCO2 " << it["co2"]
+                << " PTYPE " << it["type"] << " PMESSAGE " << it["message"] << std::endl;
+    }
+    std::cout << "\n\n";
 
     return demands;
 }

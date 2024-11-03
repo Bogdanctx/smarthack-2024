@@ -6,13 +6,14 @@
 struct Connection
 {
 	Connection() = default;
-	Connection(const std::string &fromId, const std::string &toId, unsigned long long int distance,
+	Connection(const std::string& id, const std::string &fromId, const std::string &toId, unsigned long long int distance,
                unsigned long long int leadTimeDays, const std::string &connectionType,
                unsigned long long int maxCapacity) : from_id(fromId), to_id(toId), distance(distance),
                                                      lead_time_days(leadTimeDays), connection_type(connectionType),
-                                                     max_capacity(maxCapacity) {}
+                                                     max_capacity(maxCapacity), id(id) {}
      
 
+    std::string id;
     std::string from_id;
     std::string to_id;
     unsigned long long distance;

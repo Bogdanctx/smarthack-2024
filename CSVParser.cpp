@@ -22,7 +22,7 @@ std::unordered_map<std::string, Connection> CSVParser::getConnections() {
         std::string connection_type = row["connection_type"].get<std::string>();
         unsigned long long max_capacity = row["max_capacity"].get<unsigned long long>();
 
-        Connection connection{from_id, to_id, distance, lead_time_days, connection_type, max_capacity};
+        Connection connection{id, from_id, to_id, distance, lead_time_days, connection_type, max_capacity};
         connections[id] = connection;
     }
 
