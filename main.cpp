@@ -41,14 +41,13 @@ void handleDemands(std::unordered_map<std::string, Demand>& demands, std::unorde
         double bestCost = std::numeric_limits<double>::max();
         for (const auto& [tankId, tank] : tanks) {
             if (connections.find(tankId) != connections.end() && connections.at(tankId).to_id == demand.customerId) {
-                double cost = 0;/* CALCULEAZA COSTU IN PULA MEA*/ ;
-                if (cost < bestCost) {
-                    bestCost = cost;
+                double dist = connections.find(tankId)->second.distance; ;
+                if (dist < bestCost) {
+                    bestCost = dist;
                     bestStorageId = tankId;
                 }
             }
         }
-
         if (bestStorageId.empty()) {
             ++it;
             continue;
