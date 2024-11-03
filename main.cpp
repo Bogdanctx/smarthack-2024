@@ -9,6 +9,8 @@
 #include "structs.h"
 #include <nlohmann/json.hpp>
 
+std::vector<Movement> movements;
+
 bool cmpRefs(const std::pair<std::string, Refinery>& a, const std::pair<std::string, Refinery>& b) {
     return (static_cast<double>(a.second.cat_e_ocupat) / a.second.capacity) > (static_cast<double>(b.second.cat_e_ocupat) / b.second.capacity);
 }
@@ -83,6 +85,8 @@ void handleDemands(std::unordered_map<std::string, Demand>& demands, std::unorde
 
                 // Transfer the amount and update the storage
                 tank.cat_e_ocupat -= amountToTransfer;
+                movements.push_back(Movement{connections.at(tankId).id, amountToTransfer});
+
                 std::cout << "Transferred " << amountToTransfer << " units from tank " << tankId << " to customer " << demand.customerId << std::endl;
 
                 if (amountToTransfer == demand.amount) {
@@ -119,6 +123,7 @@ int main() {
     api.startSession();
     std::vector<Demand> api_new_demands = api.playRound(0, {});
     std::vector<Demand> total_demands;
+
     CSVParser parser;
 
     auto refs = parser.getRefineries();
@@ -137,7 +142,11 @@ int main() {
             refinery.cat_e_ocupat += refinery.max_output;
             ref_vector.emplace_back(id, refinery);
         }
-
+        for(auto& [id,tank]: tanks)
+        {
+            tank.cat_e_ocupat+=tank.initial_stock;
+            tank_vector.emplace_back(id,tank);
+        }
         // Sort refineries and tanks
         std::sort(ref_vector.begin(), ref_vector.end(), cmpRefs);
         std::sort(tank_vector.begin(), tank_vector.end(), cmpTanks);
@@ -149,17 +158,27 @@ int main() {
         // Distribute fuel from refineries to tanks
         for (auto& [ref_id, refinery] : ref_vector) {
             double total_stress = 0;
+
             for (auto& [tank_id, tank] : tank_vector) {
-                total_stress += tank.stress;
+                //unsigned long long leadTime = connections.at(tank_id).lead_time_days;
+                //unsigned long long arrivalDay = i + leadTime;
+                //if(arrivalDay<=42)
+                    total_stress += tank.stress;
             }
 
             for (auto& [tank_id, tank] : tank_vector) {
-                double fuel_to_transfer = (tank.stress / total_stress) * refinery.max_output;
+                unsigned long long fuel_to_transfer = (tank.stress / total_stress) * refinery.max_output;
                 if (fuel_to_transfer > (tank.capacity - tank.cat_e_ocupat)) {
                     fuel_to_transfer = tank.capacity - tank.cat_e_ocupat;
                 }
                 tank.cat_e_ocupat += fuel_to_transfer;
                 refinery.cat_e_ocupat -= fuel_to_transfer;
+
+                for(auto conex: connections) {
+                    if(conex.second.from_id == ref_id && conex.second.to_id == tank_id) {
+                        movements.push_back(Movement{conex.first, fuel_to_transfer});
+                    }
+                }
             }
 
             // Handle overflow
@@ -202,5 +221,6 @@ int main() {
         engine.run();
     }
 */
+    api.endSession();
     return 0;
 }

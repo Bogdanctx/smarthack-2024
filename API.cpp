@@ -63,6 +63,8 @@ std::vector<Demand> API::playRound(int day, std::vector<Movement> movements)
         cpr::Body{j.dump()}
     );
 
+    std::cout<<j<<std::endl;
+
     nlohmann::json parsed = nlohmann::json::parse(res.text);
 
     std::vector<Demand> demands;
