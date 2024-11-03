@@ -116,7 +116,7 @@ int main() {
     nlohmann::json api_json = nlohmann::json::parse(fin);
 
     API api{api_json["api_key"], api_json["api_link"]};
-
+    api.startSession();
     std::vector<Demand> api_new_demands = api.playRound(0, {});
     std::vector<Demand> total_demands;
     CSVParser parser;
@@ -131,6 +131,7 @@ int main() {
     std::vector<std::pair<std::string, Tank>> tank_vector;
 
     for (int i = 1; i <= 42; i++) {
+        api_new_demands = api.playRound(i, {});
         // Update refinery storage
         for (auto& [id, refinery] : refs) {
             refinery.cat_e_ocupat += refinery.max_output;
