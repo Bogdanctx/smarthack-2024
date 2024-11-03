@@ -1,5 +1,4 @@
-Pipi caca
-Imi bag ceva 
+
 Doamne ajuta!!!
                                                                                 
                                                                                 
