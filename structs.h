@@ -91,6 +91,8 @@ struct Demand {
     unsigned int postDay;
     unsigned int startDay;
     unsigned int endDay;
+
+    bool terminat = false;
 };
 
 struct Movement

@@ -77,9 +77,9 @@ std::vector<Demand> API::playRound(int day, std::vector<Movement> movements)
 
         Demand new_demand(customerId, amount, postDay, startDay, endDay);
         demands.push_back(new_demand);
-
-        std::cout << customerId << ' ' << amount << ' ' << postDay << ' ' << startDay << ' ' << endDay << std::endl;
     }
+
+    std::cout << "Day: " << parsed["totalKpis"]["day"] << ' ' << "cost: " << parsed["totalKpis"]["day"] << ' ' << "co2: " << parsed["totalKpis"]["co2"] << std::endl;
 
     return demands;
 }
