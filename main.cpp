@@ -28,81 +28,61 @@ int main()
 
     std::vector<Demand> demands;
     CSVParser parser;
-
     std::vector<Movement> movements;
+    auto tanks = parser.getTanks();
+    auto connections = parser.getConnections();
+    auto refineries = parser.getRefineries();
 
-    for(int day = 0; day <= 42; day++)
-    {
-        auto tanks = parser.getTanks();
-        auto connections = parser.getConnections();
+    for (int day = 0; day <= 42; day++) {
+        for (Demand& d : demands) {
+            if (d.terminat) continue;
 
-        for(Demand& d: demands)
-        {
-            if(d.terminat)
-            {
-                continue;
-            }
+            for (const auto& connection : connections) {
+                auto from_tank_it = tanks.find(connection.second.from_id);
+                if (from_tank_it != tanks.end() && connection.second.to_id == d.customerId) {
+                    Tank& from_tank = from_tank_it->second;
 
-            for(auto& connection: connections)
-            {
-                for(auto& tank: tanks)
-                {
-                    if(tank.first == connection.second.from_id && connection.second.to_id == d.customerId)
-                    {
-                        if(tanks[connection.second.from_id].initial_stock >= d.amount)
-                        {
-                            movements.push_back(Movement{connection.first, d.amount});
-                            tanks[connection.second.from_id].initial_stock -= d.amount;
-                            d.terminat = true;
-                        }
+                    if (from_tank.initial_stock >= d.amount) {
+                        movements.emplace_back(connection.first, d.amount);
+                        from_tank.initial_stock -= d.amount;
+                        d.terminat = true;
+                        break;  // Demand fulfilled; no need to check further connections
                     }
                 }
             }
         }
 
-        std::vector<Tank> tanks2;
-        for(auto& tank: tanks)
-        {
-            tanks2.push_back(tank.second);
+        // Sort tanks by initial stock for efficient refilling
+        std::vector<std::reference_wrapper<Tank>> tanks_sorted;
+        for (auto& tank_pair : tanks) {
+            tanks_sorted.push_back(tank_pair.second);
         }
 
-        std::sort(tanks2.begin(), tanks2.end(), [](const Tank& tank1, const Tank& tank2)
-        {
-            return tank1.initial_stock < tank2.initial_stock;
+        std::sort(tanks_sorted.begin(), tanks_sorted.end(), [](const Tank& a, const Tank& b) {
+            return a.initial_stock < b.initial_stock;
         });
 
-        auto rafinarii = parser.getRefineries();
-        for(auto& rafinarie: rafinarii)
-        {
-            for(auto& connection: connections)
-            {
-                if(connection.second.from_id == rafinarie.second.id)
-                {
-                    for(auto& tank: tanks2)
-                    {
-                        if(connection.second.to_id == tank.id)
-                        {
-                            unsigned long long a = std::min(rafinarie.second.max_output, rafinarie.second.production);
-                            tank.initial_stock += a;
-                            movements.push_back(Movement(connection.first, a));
+        // Process refineries and refill tanks
+        for (const auto& refinery : refineries) {
+            for (const auto& connection : connections) {
+                if (connection.second.from_id == refinery.second.id) {
+                    for (Tank& tank : tanks_sorted) {
+                        if (connection.second.to_id == tank.id) {
+                            unsigned long long transfer_amount = std::min(refinery.second.max_output, refinery.second.production);
+                            tank.initial_stock += transfer_amount;
+                            movements.emplace_back(connection.first, transfer_amount);
+                            break;  // Move to the next connection once a tank is refilled
                         }
                     }
                 }
             }
         }
 
-        for(auto& tank: tanks2)
-        {
-            tanks[tank.id] = tank;
-        }
+        // Update demands based on new round data
+        auto new_demands = api.playRound(day, movements);
+        demands.insert(demands.end(), new_demands.begin(), new_demands.end());
+}
 
-        std::vector<Demand> new_demands = api.playRound(day, movements);
-        for(auto& new_demand: new_demands)
-        {
-            demands.push_back(new_demand);
-        }
-
-    }
     api.endSession();
 
 
