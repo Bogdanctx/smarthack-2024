@@ -17,10 +17,11 @@ std::unordered_map<std::string, Demand> CSVParser::getDemands() {
     csv::CSVReader reader("resources/data/demands.csv");
 
     for (csv::CSVRow& row : reader) {
-        std::string customerId = row["customerId"].get<std::string>();
-        unsigned long long amount = row["amount"].get<unsigned long long>();
-        unsigned long long startDay = row["startDay"].get<unsigned long long>();
-        unsigned long long endDay = row["endDay"].get<unsigned long long>();
+        std::string customerId = row["customer_id"].get<std::string>();
+        unsigned long long amount = row["quantity"].get<unsigned long long>();
+        unsigned long long postDay = row["post_day"].get<unsigned long long>();
+        unsigned long long startDay = row["start_delivery_day"].get<unsigned long long>();
+        unsigned long long endDay = row["end_delivery_day"].get<unsigned long long>();
 
         Demand demand{customerId, amount, startDay, endDay};
         demands[customerId] = demand;
@@ -43,9 +44,10 @@ std::unordered_map<std::string, Connection> CSVParser::getConnections() {
         unsigned long long lead_time_days = row["lead_time_days"].get<unsigned long long>();
         std::string connection_type = row["connection_type"].get<std::string>();
         unsigned long long max_capacity = row["max_capacity"].get<unsigned long long>();
-
+        /*
         Connection connection{from_id, to_id, distance, lead_time_days, connection_type, max_capacity};
         connections[id] = connection;
+         */
     }
 
     return connections;
