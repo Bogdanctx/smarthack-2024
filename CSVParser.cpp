@@ -7,6 +7,28 @@
 #include <iostream>
 #include "csv.hpp"
 
+
+#include "CSVParser.h"
+#include <fstream>
+#include <sstream>
+
+std::unordered_map<std::string, Demand> CSVParser::getDemands() {
+    std::unordered_map<std::string, Demand> demands;
+    csv::CSVReader reader("resources/data/demands.csv");
+
+    for (csv::CSVRow& row : reader) {
+        std::string customerId = row["customerId"].get<std::string>();
+        unsigned long long amount = row["amount"].get<unsigned long long>();
+        unsigned long long startDay = row["startDay"].get<unsigned long long>();
+        unsigned long long endDay = row["endDay"].get<unsigned long long>();
+
+        Demand demand{customerId, amount, startDay, endDay};
+        demands[customerId] = demand;
+    }
+
+    return demands;
+}
+
 std::unordered_map<std::string, Connection> CSVParser::getConnections() {
 
     std::unordered_map<std::string, Connection> connections;

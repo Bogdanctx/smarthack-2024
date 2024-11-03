@@ -14,6 +14,7 @@ public:
     std::unordered_map<std::string, Customer> getCustomers();
     std::unordered_map<std::string, Refinery> getRefineries();
     std::unordered_map<std::string, Tank> getTanks();
+    std::unordered_map<std::string, Demand> getDemands();
 };
 
 
